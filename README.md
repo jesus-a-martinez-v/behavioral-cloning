@@ -11,7 +11,7 @@ You can read more about the data exploration and familiarization process [here](
 ### Recovery
 
 One of the main problems with our data set is that it is biased towards driving straight (i.e. not turning at all). This
-means that when the car approaches the limit of the road it won't steer because the aforementioned bias. So, what do we do?
+means that when the car approaches the limit of the road it won't steer because of the aforementioned bias. So, what do we do?
 Well, there are two techniques that can be used to prevent this situation:
 
 * Record more images in the simulator **only** when driving from one of the borders of the road back to the center, or
@@ -20,7 +20,7 @@ Well, there are two techniques that can be used to prevent this situation:
 We used the second approach for the following reasons:
 
 * Recording recovery data is **hard** and consumes **a lot** of time.
-* In a real world setting is very unlikely that we'll be able to zigzag from one end to the road to the other just to teach our car how to recover (mainly because it is unsafe).
+* In a real world setting is very unlikely that we'll be able to zigzag from one end of the road to the other just to teach our car how to recover (mainly because it is unsafe).
 
 By using the left and right cameras images we can **simulate** that the car is driving back to the center just by adding a little steering angle (a positive one if we are coming from the left and a negative one if we're coming from the right). In our case, a steering angle of **+/- 0.275** gave the best results.
 
@@ -51,7 +51,7 @@ After pre-processing:
 ## Model architecture
 
 One of the **hardest** parts of solving a problem using machine learning and deep learning in particular is to determine
-the correct architecture. Fortunately there are incredibly smart people working in all sort of problems. Even better, they share their findings and techniques so more and more people can use their knowledge and ideas as a starting point. That's exactly what we did. We used the model that the amazing NVIDIA team developed and published in this [paper](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf). Here's an outline of the architecture implemented:
+the correct architecture. Fortunately there are incredibly smart people working in all sort of problems. Even better, they share their findings and techniques so more and more people can use their knowledge and ideas as a starting point. That's exactly what we did. We used the model that the amazing NVIDIA team developed and published in this [paper](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) because they solved a very similar problem (if not equal) but at a larger scale. Here's an outline of the architecture implemented:
 
 ![alt tag](https://github.com/jesus-a-martinez-v/behavioral-cloning/blob/master/readme_assets/1-oYI-6Ne_RfQcBiNftqcvew.png)
 
@@ -60,14 +60,14 @@ the correct architecture. Fortunately there are incredibly smart people working 
 * **Third layer**: Convolutional layer with 48x5x5 filters. Dropout of 0.5. ELU activation. 2x2 subsampling.
 * **Fourth layer**: Convolutional layer with 64x3x3 filters. Dropout of 0.5. ELU activation. 1x1 subsampling.
 * **Fifth layer**: Convolutional layer with 64x3x3 filters. Dropout of 0.5. ELU activation. 1x1 subsampling.
-+ **Sixth layer**: Flatten layer.
+* **Sixth layer**: Flatten layer.
 * **Seventh layer**: Fully connected layer. 1164 units. ELU activation.
 * **Eighth layer**: Fully connected layer. 100 units. ELU activation.
 * **Ninth layer**: Fully connected layer. 50 units. ELU activation.
 * **Tenth layer**: Fully connected layer. 10 units. ELU activation.
 * **Eleventh layer**: Output layer. 1 unit.
 
-We used ELU activation instead of ReLUs because, according to this article, it behaves better with negative and near-zero values. Hence, it speeds up the learning process a bit by preventing dead neurons when some of the weights gets equals to zero.
+We used ELU activation instead of ReLUs because, according to [this](http://www.picalike.com/blog/2015/11/28/relu-was-yesterday-tomorrow-comes-elu/) article, it behaves better with negative and near-zero values. Hence, it speeds up the learning process a bit by preventing dead neurons when some of the weights gets equals to zero.
 
 We used dropout between convolutional layers because here's where most of the connections are, so by dropping half of our activations each time we "force" our model to generalize better.
 
@@ -100,3 +100,10 @@ You can see how the car performs on a relatively simple circuit [here](https://d
 * More curves to the right.
 * More pronounced curves.
 * Irregular terrain.
+
+## Further improvement
+
+* Add another augmentation techniques such as random translation and rotations.
+* Train with more data.
+* Make model more robust to partial shadows on the road.
+* Keep the car steadier on the center on the road.
