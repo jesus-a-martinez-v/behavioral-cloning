@@ -2,7 +2,7 @@
 
 Code base for a deep learning model purposed to teach a car to drive by itself, just by mimicking/cloning the behavior 
 of a human at the wheel. This project was developed as part of the amazing [Self Driving Car Engineer Nanodegree 
-offered by Udacity](https://www.udacity.com/drive)
+offered by Udacity](https://www.udacity.com/drive).
 
 ## Data exploration
 
@@ -103,7 +103,7 @@ You can see how the car performs on a relatively simple circuit [here](https://d
 
 ## Further improvement
 
-* Add another augmentation techniques such as random translation and rotations.
+* Add more augmentation techniques such as random translation and rotations.
 * Train with more data.
 * Make model more robust to partial shadows on the road.
 * Keep the car steadier on the center on the road.
