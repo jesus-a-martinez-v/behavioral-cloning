@@ -22,9 +22,7 @@ We used the second approach for the following reasons:
 * Recording recovery data is **hard** and consumes **a lot** of time.
 * In a real world setting is very unlikely that we'll be able to zigzag from one end to the road to the other just to teach our car how to recover (mainly because it is unsafe).
 
-By using the left and right cameras images we can **simulate** that the car is driving back to the center just by adding a little
-steering angle (a positive one if we are coming from the left and a negative one if we're coming from the right). In our case, a
-steering angle of **+/- 0.275** gave the best results.
+By using the left and right cameras images we can **simulate** that the car is driving back to the center just by adding a little steering angle (a positive one if we are coming from the left and a negative one if we're coming from the right). In our case, a steering angle of **+/- 0.275** gave the best results.
 
 ### Augmentation
 
@@ -43,17 +41,17 @@ We used [this GREAT model developed by NVIDIA](http://images.nvidia.com/content/
  * Normalize pixels values, dividing them by 255.
  
 Original image:
-![alt tag](https://github.com/jesus-a-martinez-v/behavioral-cloning/blob/master/small_sample_data/IMG/left_2016_12_01_13_30_48_287.jpg)
+
+![alt tag](https://github.com/jesus-a-martinez-v/behavioral-cloning/blob/master/readme_assets/left.png)
 
 After pre-processing:
+
 ![alt tag](https://github.com/jesus-a-martinez-v/behavioral-cloning/blob/master/readme_assets/preprocess.png)
 
 ## Model architecture
 
 One of the **hardest** parts of solving a problem using machine learning and deep learning in particular is to determine
-the correct architecture. Fortunately there are incredibly smart people working in all sort of problems. Even better, they share their findings and techniques 
-so more and more people can use their knowledge and ideas as a starting point. That's exactly what we did. We used the model
-that the amazing NVIDIA team developed and published in this [paper](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf). Here's an outline of the architecture implemented:
+the correct architecture. Fortunately there are incredibly smart people working in all sort of problems. Even better, they share their findings and techniques so more and more people can use their knowledge and ideas as a starting point. That's exactly what we did. We used the model that the amazing NVIDIA team developed and published in this [paper](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf). Here's an outline of the architecture implemented:
 
 ![alt tag](https://github.com/jesus-a-martinez-v/behavioral-cloning/blob/master/readme_assets/1-oYI-6Ne_RfQcBiNftqcvew.png)
 
@@ -69,21 +67,17 @@ that the amazing NVIDIA team developed and published in this [paper](http://imag
 * **Tenth layer**: Fully connected layer. 10 units. ELU activation.
 * **Eleventh layer**: Output layer. 1 unit.
 
-We used ELU activation instead of ReLUs because, according to this article, it behaves better with negative and near-zero values. Hence, it 
-speeds up the learning process a bit by preventing dead neurons when some of the weights gets equals to zero.
+We used ELU activation instead of ReLUs because, according to this article, it behaves better with negative and near-zero values. Hence, it speeds up the learning process a bit by preventing dead neurons when some of the weights gets equals to zero.
 
-We used dropout between convolutional layers because here's where most of the connections are, so by dropping half of our activations each time
-we "force" our model to generalize better.
+We used dropout between convolutional layers because here's where most of the connections are, so by dropping half of our activations each time we "force" our model to generalize better.
 
 ## Training
 
-To train our model we used an Adam Optimizer because it is a good default. Also, this kind of optimizer is better than
-Gradient Descent because it usually converges faster by keeping track of the momentum. It adjusts the learning rate so our model doesn't overshoot trying to find the right direction downwards.
+To train our model we used an Adam Optimizer because it is a good default. Also, this kind of optimizer is better than Gradient Descent because it usually converges faster by keeping track of the momentum. It adjusts the learning rate so our model doesn't overshoot trying to find the right direction downwards.
 
 We split the data in two: 80% of the data were used to train the model and the remaining 20% for validation after each epoch.
 
-In both cases (i.e., for training and validation) we used a Python generator that creates a batch of augmented data on demand. The batch sized used
-was 64. The augmentation process followed by the generator is:
+In both cases (i.e., for training and validation) we used a Python generator that creates a batch of augmented data on demand. The batch sized used was 64. The augmentation process followed by the generator is:
 
 * Select an image from **one** of the cameras (left, center or right).
 * If the image is from the right camera, then subtract 0.275 from the steering angle.
