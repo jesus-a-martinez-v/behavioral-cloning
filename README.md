@@ -6,7 +6,7 @@ offered by Udacity](https://www.udacity.com/drive)
 
 ## Data exploration
 
-You can read more about the data exploration and familiarization process [here](???).
+You can read more about the data exploration and familiarization process [here](https://github.com/jesus-a-martinez-v/behavioral-cloning/blob/master/exploration.ipynb).
 
 ### Recovery
 
@@ -43,10 +43,10 @@ We used [this GREAT model developed by NVIDIA](http://images.nvidia.com/content/
  * Normalize pixels values, dividing them by 255.
  
 Original image:
-![]
+![alt tag](https://github.com/jesus-a-martinez-v/behavioral-cloning/blob/master/small_sample_data/IMG/left_2016_12_01_13_30_48_287.jpg)
 
 After pre-processing:
-![]
+![alt tag](https://github.com/jesus-a-martinez-v/behavioral-cloning/blob/master/readme_assets/preprocess.png)
 
 ## Model architecture
 
@@ -55,7 +55,7 @@ the correct architecture. Fortunately there are incredibly smart people working 
 so more and more people can use their knowledge and ideas as a starting point. That's exactly what we did. We used the model
 that the amazing NVIDIA team developed and published in this [paper](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf). Here's an outline of the architecture implemented:
 
-![]
+![alt tag](https://github.com/jesus-a-martinez-v/behavioral-cloning/blob/master/readme_assets/1-oYI-6Ne_RfQcBiNftqcvew.png)
 
 * **First layer**: Convolutional layer with 24x5x5 filters. Dropout of 0.5. ELU activation. 2x2 subsampling.
 * **Second layer**: Convolutional layer with 36x5x5 filters. Dropout of 0.5. ELU activation. 2x2 subsampling.
